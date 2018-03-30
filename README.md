@@ -14,6 +14,4 @@ Access your app's SQLite database with in-app objects and compile-time checks.
 
 **Paging** </br>
 Gradually load information as needed from a data source.
-
-https://developer.android.com/topic/libraries/architecture/index.html
 [Android Architecture Components](http://daringfireball.net/projects/markdown/basics)

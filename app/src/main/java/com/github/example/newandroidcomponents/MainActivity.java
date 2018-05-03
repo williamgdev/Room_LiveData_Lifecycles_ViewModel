@@ -1,6 +1,8 @@
 package com.github.example.newandroidcomponents;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,20 +19,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         helloViewModel = ViewModelProviders.of(this).get(HelloViewModel.class);
         editText = findViewById(R.id.editText);
+        subscribe();
+    }
+
+    private void subscribe() {
+        Observer<String> textChanged = new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String message) {
+                showToast(message);
+            }
+        };
+        helloViewModel.getMessage()
+                .observe(this, textChanged);
     }
 
     public void saySomething(View view) {
         switch (view.getId()) {
             case R.id.button:
-                if (helloViewModel.getMessage() == null) {
-                    helloViewModel.sayHello(editText.getText().toString());
-                }
-                showToast(helloViewModel.getMessage());
+                helloViewModel.sayHello(editText.getText().toString());
                 break;
         }
     }
 
     private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

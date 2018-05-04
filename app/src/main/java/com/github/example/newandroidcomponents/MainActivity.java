@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         helloViewModel = ViewModelProviders.of(this).get(HelloViewModel.class);
         editText = findViewById(R.id.editText);
         subscribe();
-        interactor = new TimerInteractor(new TimerInteractor.TimerInteractorListener() {
+        interactor = new TimerInteractor(this, new TimerInteractor.TimerInteractorListener() {
             @Override
             public void onUpdate(String time) {
                 Log.d(TAG, "onUpdate: " + time);

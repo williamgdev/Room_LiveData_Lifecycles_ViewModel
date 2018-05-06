@@ -36,11 +36,11 @@ public class Example2Fragment extends Fragment {
     }
 
     private void subscribeTimeChanges() {
-        timeViewModel.getText().observe(getActivity(), new Observer<String>() {
+        timeViewModel.getNumber().observe(getActivity(), new Observer<Integer>() {
             @Override
-            public void onChanged(@Nullable String s) {
+            public void onChanged(@Nullable Integer s) {
                 View view = getView().findViewById(R.id.fragmentTextView);
-                ((TextView) view).setText(s);
+                ((TextView) view).setText(s.toString());
             }
         });
     }

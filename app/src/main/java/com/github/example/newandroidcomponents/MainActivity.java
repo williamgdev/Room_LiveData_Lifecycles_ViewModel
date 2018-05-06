@@ -26,15 +26,16 @@ public class MainActivity extends AppCompatActivity {
         timeViewModel = ViewModelProviders.of(this).get(TimeViewModel.class);
         editText = findViewById(R.id.editText);
         subscribe();
-        interactor = new TimerInteractor(this, new TimerInteractor.TimerInteractorListener() {
+        int number = timeViewModel.getNumber().getValue() == null ? 0 : timeViewModel.getNumber().getValue();
+        interactor = new TimerInteractor(this, number++, new TimerInteractor.TimerInteractorListener() {
             @Override
-            public void onUpdate(String time) {
-                timeViewModel.setText(time);
+            public void onUpdate(Integer time) {
+                timeViewModel.setNumber(time);
             }
 
             @Override
             public void onComplete() {
-                timeViewModel.setText("Complete");
+                showToast("Complete");
             }
         });
         if (savedInstanceState == null ) {

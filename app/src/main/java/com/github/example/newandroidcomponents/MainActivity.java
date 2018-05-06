@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     HelloViewModel helloViewModel;
     private EditText editText;
     TimerInteractor interactor;
+    private Example1Fragment example1Fragment;
+    private Example2Fragment example2Fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,27 @@ public class MainActivity extends AppCompatActivity {
         interactor = new TimerInteractor(this, new TimerInteractor.TimerInteractorListener() {
             @Override
             public void onUpdate(String time) {
-                Log.d(TAG, "onUpdate: " + time);
+                example1Fragment.setText(time);
+                example2Fragment.setText(time);
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "onComplete: ");
+                example1Fragment.setText("Complete");
+                example2Fragment.setText("Complete");
             }
         });
+        example1Fragment = new Example1Fragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contentFragment, example1Fragment)
+                .commit();
+
+        example2Fragment = new Example2Fragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.contentFragment, example2Fragment)
+                .commit();
     }
 
     private void subscribe() {

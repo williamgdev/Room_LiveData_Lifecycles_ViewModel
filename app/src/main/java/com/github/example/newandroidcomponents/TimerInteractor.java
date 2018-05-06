@@ -10,7 +10,7 @@ import java.util.TimerTask;
 
 class TimerInteractor implements LifecycleObserver{
 
-    private final Timer timer;
+    private Timer timer;
     private TimerInteractorListener listener;
     private int count;
 
@@ -25,6 +25,7 @@ class TimerInteractor implements LifecycleObserver{
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void start() {
+        timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {

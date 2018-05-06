@@ -16,38 +16,40 @@ public class MainActivity extends AppCompatActivity {
     TimerInteractor interactor;
     private Example1Fragment example1Fragment;
     private Example2Fragment example2Fragment;
+    private TimeViewModel timeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         helloViewModel = ViewModelProviders.of(this).get(HelloViewModel.class);
+        timeViewModel = ViewModelProviders.of(this).get(TimeViewModel.class);
         editText = findViewById(R.id.editText);
         subscribe();
         interactor = new TimerInteractor(this, new TimerInteractor.TimerInteractorListener() {
             @Override
             public void onUpdate(String time) {
-                example1Fragment.setText(time);
-                example2Fragment.setText(time);
+                timeViewModel.setText(time);
             }
 
             @Override
             public void onComplete() {
-                example1Fragment.setText("Complete");
-                example2Fragment.setText("Complete");
+                timeViewModel.setText("Complete");
             }
         });
-        example1Fragment = new Example1Fragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.contentFragment, example1Fragment)
-                .commit();
+        if (savedInstanceState == null ) {
+            example1Fragment = new Example1Fragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentFragment, example1Fragment)
+                    .commit();
 
-        example2Fragment = new Example2Fragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.contentFragment, example2Fragment)
-                .commit();
+            example2Fragment = new Example2Fragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.contentFragment, example2Fragment)
+                    .commit();
+        }
     }
 
     private void subscribe() {

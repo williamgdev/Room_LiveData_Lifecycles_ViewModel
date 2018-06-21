@@ -35,6 +35,7 @@ public class Example1Fragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_example1, container, false);
         timeViewModel = ViewModelProviders.of(getActivity()).get(TimeViewModel.class);
         binding.setDataSource(timeViewModel);
+        binding.setLifecycleOwner(this);
         subscribeTimeChanges();
         return binding.getRoot();
     }
@@ -43,7 +44,7 @@ public class Example1Fragment extends Fragment {
         timeViewModel.getNumber().observe(getActivity(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                binding.fragmentTextView.setText(s.toString());
+//                binding.fragmentTextView.setText(s.toString());
             }
         });
     }

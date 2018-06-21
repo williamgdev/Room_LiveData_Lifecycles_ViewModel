@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         helloViewModel = ViewModelProviders.of(this).get(HelloViewModel.class);
         timeViewModel = ViewModelProviders.of(this).get(TimeViewModel.class);
         subscribe();
-        int number = timeViewModel.getNumber().getValue() == null ? 0 : timeViewModel.getNumber().getValue();
+        int number = timeViewModel.getNumber().getValue() == null ? 0 : Integer.parseInt(timeViewModel.getNumber().getValue());
         interactor = new TimerInteractor(this, number++, new TimerInteractor.TimerInteractorListener() {
             @Override
             public void onUpdate(Integer time) {

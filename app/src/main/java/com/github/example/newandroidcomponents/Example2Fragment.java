@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.example.newandroidcomponents.databinding.FragmentExample1Binding;
+import com.github.example.newandroidcomponents.databinding.FragmentExample2Binding;
 
 
 /**
@@ -22,7 +23,7 @@ public class Example2Fragment extends Fragment {
 
 
     private TimeViewModel timeViewModel;
-    private FragmentExample1Binding binding;
+    private FragmentExample2Binding binding;
 
     public Example2Fragment() {
         // Required empty public constructor
@@ -33,17 +34,18 @@ public class Example2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_example1, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_example2, container, false);
         timeViewModel = ViewModelProviders.of(getActivity()).get(TimeViewModel.class);
+        binding.setDataSource(timeViewModel);
         subscribeTimeChanges();
         return binding.getRoot();
     }
 
     private void subscribeTimeChanges() {
-        timeViewModel.getNumber().observe(getActivity(), new Observer<Integer>() {
+        timeViewModel.getNumber().observe(getActivity(), new Observer<String>() {
             @Override
-            public void onChanged(@Nullable Integer s) {
-                binding.fragmentTextView.setText(s.toString());
+            public void onChanged(@Nullable String s) {
+                binding.fragmentTextView.setText(s);
             }
         });
     }

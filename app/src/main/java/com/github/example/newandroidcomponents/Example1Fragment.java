@@ -1,11 +1,9 @@
 package com.github.example.newandroidcomponents;
 
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,17 +34,7 @@ public class Example1Fragment extends Fragment {
         timeViewModel = ViewModelProviders.of(getActivity()).get(TimeViewModel.class);
         binding.setDataSource(timeViewModel);
         binding.setLifecycleOwner(this);
-        subscribeTimeChanges();
         return binding.getRoot();
-    }
-
-    private void subscribeTimeChanges() {
-        timeViewModel.getNumber().observe(getActivity(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-//                binding.fragmentTextView.setText(s.toString());
-            }
-        });
     }
 
 }
